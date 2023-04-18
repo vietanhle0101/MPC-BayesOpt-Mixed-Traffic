@@ -19,8 +19,8 @@ function main_BO_GP(gp, paths, W_H; p0 = 0.0, v0 = 10.0, T = 0.2, H = 20, G = 20
 
     # W_H = [1e1, 1e-1]
     gp1, gp2 = gp
-    W_AH = 1e3; W_A = lookup_table(itp_w1, itp_w2, W_H)
-
+    W_AH = 1e3; W_A = 10.0 .^ [predict_y(gp1, log.(W_H)[:,:])[1][1], predict_y(gp2, log.(W_H)[:,:])[1][1] ]
+    
     ## Controller object
     control = MPC_Planner(T, H, n_cars)
     control_params = Dict("W1" => [W_A[1], W_H[1]], "W2" => [W_A[2], W_H[2]], "W3" => W_AH, "β" => 1.0)

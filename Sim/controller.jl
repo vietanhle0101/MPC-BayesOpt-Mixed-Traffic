@@ -137,9 +137,9 @@ function MPC(c::MPC_Planner, node_dict; solver = "Ipopt")
             J = @NLexpression(model, J - c.params["W3"]*log(c.params["β"]*(di[k]^2 + dj[k]^2)))
         end
         # Safety constraints
-        @constraints(model, begin
-            c.r^2 + cutoff .<= di.^2 .+ dj.^2
-        end)
+        # @constraints(model, begin
+        #     c.r^2 + cutoff .<= di.^2 .+ dj.^2
+        # end)
     end
     @NLobjective(model, Min, J)
 
